@@ -7,7 +7,7 @@ import cadastrar from '../pages/Cadastrar';
 import DetailsScreen from '../pages/Details';
 import HomeScreen from '../pages/HomeScreen';
 import Menu from '../pages/Menu';
-/* import qrcodeGenerator from '../pages/qrCodeGenerator'; */
+import qrcodeGenerator from '../pages/qrCodeGenerator';
 import QRCodeScanner from '../pages/qrCode';
 import StackNavigation from '../Navigation/StackNavigation';
 import MenuDrawer from '../pages/MenuDrawer'
@@ -27,7 +27,7 @@ const DrawerNavigation = createDrawerNavigator(
         voltar: {screen: StackNavigation},
         home: { screen: HomeScreen },
         qrcode: { screen: QRCodeScanner },
-        /* qrcodeGenerator: { screen: qrcodeGenerator }, */
+        qrcodeGenerator: { screen: qrcodeGenerator },
         menu: { screen: Menu },
         
     },

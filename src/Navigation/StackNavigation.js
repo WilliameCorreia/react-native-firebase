@@ -6,7 +6,7 @@ import cadastrar from '../pages/Cadastrar';
 import DetailsScreen from '../pages/Details';
 import HomeScreen from '../pages/HomeScreen';
 import QRCodeScanner from '../pages/qrCode';
-/* import qrcodeGenerator from '../pages/qrCodeGenerator' */
+import qrcodeGenerator from '../pages/qrCodeGenerator'
 import Menu from '../pages/Menu';
 
 import MenuButtom from '../pages/MenuButtom'
@@ -22,7 +22,7 @@ const StackNavigator = createStackNavigator(
         details: {screen: DetailsScreen},
         menu: {screen: Menu},
         qrcode: {screen: QRCodeScanner},
-        /* qrcodeGenerator: {screen: qrcodeGenerator}  */
+        qrcodeGenerator: {screen: qrcodeGenerator} 
     },
     {
         initialRouteName: "home", 
