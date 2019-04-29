@@ -4,6 +4,8 @@ import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Image } from 'rea
 import { withNavigation } from 'react-navigation'
 import { ScrollView } from 'react-native-gesture-handler';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 const WIDTH = Dimensions.get('window').width
 const HEIGTH = Dimensions.get('window').height
 
@@ -17,9 +19,14 @@ class MenuDrawer extends Component {
             </TouchableOpacity>
         );
     }
+
+    limpar = () => {
+        AsyncStorage.clear();
+        this.props.navigation.navigate('login');
+    }
+
     render() {
         return (
-
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.topLinks}>
@@ -39,11 +46,14 @@ class MenuDrawer extends Component {
                     </View>
                 </ScrollView>
                 <View style={styles.footer}>
+                    <TouchableOpacity style={{ height: 50 }}
+                     onPress={this.limpar}>
+                        <Text style={styles.link}>Sair</Text>
+                    </TouchableOpacity>
                     <Text style={styles.description}>Menu Tutorial</Text>
                     <Text style={styles.version}>v1.0</Text>
                 </View>
             </View>
-
         );
     };
 };

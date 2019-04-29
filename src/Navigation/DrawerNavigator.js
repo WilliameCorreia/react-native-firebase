@@ -24,7 +24,7 @@ const DrawerConfig = {
 
 const DrawerNavigation = createDrawerNavigator(
     {
-        voltar: {screen: StackNavigation},
+        StackNavigation: {screen: StackNavigation},
         home: { screen: HomeScreen },
         qrcode: { screen: QRCodeScanner },
         qrcodeGenerator: { screen: qrcodeGenerator },

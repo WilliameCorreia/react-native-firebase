@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import firebase from 'react-native-firebase';
 
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Login extends Component {
 
@@ -20,6 +21,14 @@ export default class Login extends Component {
         password: '',
         isAuthenticated: false,
         status: false,
+    }
+
+    async storeData(token){
+        try {
+            await AsyncStorage.setItem('@storage_Key', token);
+        } catch (error) {
+            Alert.alert(error);
+        }
     }
 
     login = async () => {
@@ -43,22 +52,19 @@ export default class Login extends Component {
         const user = await firebase.auth().signInWithEmailAndPassword(email, password).then(sucesso => {
             console.log(sucesso);
             this.setState({ isAuthenticated: true });
-            this.props.navigation.navigate('home', { email });
-            this.setState({status: false});
+            const { uid } = sucesso.user;
+            this.setState({status: false, key: uid});
+            this.storeData(this.state.key);
+            console.log(this.state);
+            this.props.navigation.navigate('DrawerNavigator', { email });
         },
             error => {
                 Alert.alert("Error !",error.message);
                 this.setState({status: false});
             }
         );
-
-        //console.log(user);
         
     };
-
-    componentWillUnmount(){
-        
-    }
 
     render() {
 
@@ -98,7 +104,7 @@ export default class Login extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {}}>
                         <Text style={estilo.esqueceuSenha}> Esqueceu Senha </Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('cadastrar')}>

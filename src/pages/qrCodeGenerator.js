@@ -7,68 +7,80 @@ export default class QrCodeGenerator extends Component {
 
     static navigationOptions = ({ navigation, navigationOptions }) => {
         return {
-          title: ' Gerar QrCode ',
+            title: ' Gerar QrCode ',
         };
-      };
+    };
 
     constructor() {
         super();
         this.state = {
-            Text_Holder_1: '',
-            Text_Holder_2: '',
-            Text_Holder_3: '',
-            Text_Holder_4: ''
+            id: '',
+            professor: '',
+            sala: '',
+            curso: '',
+            status: false
         }
     }
 
     getTextInputValue = () => {
-        /* this.setState({ Text_Holder_2: this.state.Text_Holder_1 }); */
-        Alert.alert(this.state);
+        this.setState(
+        { 
+            id: this.state.id,
+            professor: this.state.professor,
+            sala: this.state.sala,
+            curso: this.state.curso,
+            status: true
+        }
+        );
+        Alert.alert(JSON.stringify(this.state));
     }
 
     render() {
 
         return (
-            
+
             <View style={styles.MainContainer}>
+                <View style={{flexDirection: 'row'}}>
+                    <TextInput
+                        style={styles.TextInputStyle}
+                        onChangeText={(text) => this.setState({ id: text })}
+                        underlineColorAndroid="transparent"
+                        placeholder="ID"
+                    />
+                    <TextInput
+                        style={styles.TextInputStyle}
+                        onChangeText={(text) => this.setState({ professor: text })}
+                        underlineColorAndroid="transparent"
+                        placeholder="Professor"
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <TextInput
+                        style={styles.TextInputStyle}
+                        onChangeText={(text) => this.setState({ sala: text })}
+                        underlineColorAndroid="transparent"
+                        placeholder="Sala"
+                    />
+                    <TextInput
+                        style={styles.TextInputStyle}
+                        onChangeText={(text) => this.setState({ curso: text })}
+                        underlineColorAndroid="transparent"
+                        placeholder="Curso"
+                    />
+                </View>
                 <View style={{width: '100%'}}>
-                <TextInput
-                    style={styles.TextInputStyle}
-                    onChangeText={(text) => this.setState({ Text_Holder_1: text })}
-                    underlineColorAndroid="transparent"
-                    placeholder="Adicione URL para Gerar o QR Code"
-                />
-                <TextInput
-                    style={styles.TextInputStyle}
-                    onChangeText={(text) => this.setState({ Text_Holder_2: text })}
-                    underlineColorAndroid="transparent"
-                    placeholder="Adicione URL para Gerar o QR Code"
-                />
-                <TextInput
-                    style={styles.TextInputStyle}
-                    onChangeText={(text) => this.setState({ Text_Holder_3: text })}
-                    underlineColorAndroid="transparent"
-                    placeholder="Adicione URL para Gerar o QR Code"
-                />
-                <TextInput
-                    style={styles.TextInputStyle}
-                    onChangeText={(text) => this.setState({ Text_Holder_4: text })}
-                    underlineColorAndroid="transparent"
-                    placeholder="Adicione URL para Gerar o QR Code"
-                />
                 <TouchableOpacity onPress={this.getTextInputValue} activeOpacity={0.7} style={styles.button} >
-
-                    <Text style={styles.TextStyle}> Click aqui para Gerar QR Code </Text>
-
-                </TouchableOpacity>
+                        <Text style={styles.TextStyle}> Click aqui para Gerar QR Code </Text>
+                    </TouchableOpacity>
                 </View>
                 <View>
-                    {this.state.Text_Holder_2 ? <QRCode
-                        value={this.state.Text_Holder_2}
-                        size={250}
-                        bgColor='#000'
-                        fgColor='#fff'
-                    /> : false}
+                    {this.state.status ?
+                        <QRCode
+                            value={JSON.stringify(this.state)}
+                            size={250}
+                            bgColor='#000'
+                            fgColor='#fff'
+                        /> : false}
                 </View>
             </View>
         );
@@ -82,7 +94,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     TextInputStyle: {
-        width: '100%',
+        width: '50%',
+        margin: 4,
         height: 40,
         borderRadius: 10,
         marginBottom: 10,
